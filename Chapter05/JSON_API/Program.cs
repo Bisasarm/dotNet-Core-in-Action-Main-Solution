@@ -57,6 +57,10 @@ class Handlers
 {
     /// <summary>
     /// Non static. Handler must be initialized beforehand
+    /// Binding of parameters works because the .NET Core Framework matches the parameters in the url {id} and the string id
+    /// This is case sensitive
+    /// Explicit binding is also possible
+    /// The binding of the JSON Body to Fruit it also done automatically
     /// </summary>
     /// <param name="id">needed to have a dictionary key</param>
     /// <param name="fruit">needed to give a whole fruit record</param>
