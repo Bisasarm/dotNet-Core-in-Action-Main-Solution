@@ -1,9 +1,22 @@
 using System.Collections.Concurrent;
 using System.Net.Mime;
+using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
+//adding the problemdetails to exceptions
+//this results in a json formatted webstandard response for errorhandling
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
+if (!app.Environment.IsDevelopment())
+{
+    //this time without a path to invoke the IProblemDetailsService
+    app.UseExceptionHandler();
+}
+//add problem details to 404 not found endpoints
+app.UseStatusCodePages();
+
+app.MapGet("/exception", void () => throw new Exception("test exception"));
 app.MapGet("/", () => "Hello World!");
 
 //thread safe dictionary. uses more space and is performance heavier than a normal one
