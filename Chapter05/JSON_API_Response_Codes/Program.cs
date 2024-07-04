@@ -13,16 +13,22 @@ var _fruit = new ConcurrentDictionary<string, Fruit>();
 app.MapGet("/fruit", () => _fruit);
 
 //get a specific fruit and handle a not found with 404
+//added problem for more details
 app.MapGet("/fruit/{id}", (string id) => 
     _fruit.TryGetValue(id, out var fruit)
         ? TypedResults.Ok(fruit)
-        : Results.NotFound());
+        : Results.Problem(statusCode: 404));
 //handle an already created fruit with a message and 400
+//validationproblem added to add more details. It needs a dictionary with the message inside of it
 app.MapPost("/fruit/{id}", (string id, Fruit fruit) =>
     _fruit.TryAdd(id,fruit)
         ? TypedResults.Created(id, fruit)
-        : Results.BadRequest(new { id = "A fruit with this id already exists" })
-);
+        : Results.ValidationProblem(new Dictionary<string, string[]>
+        {
+            { "id", new[] { "A fruit with this id has already been created", "teststring" } },
+            { "test", new[] {"TestString to add a separate error line for the details" } }
+            
+        }));
 //handle an update always with 204 no content
 app.MapPut("/fruit/{id}", (string id, Fruit fruit) =>
 {
@@ -35,7 +41,7 @@ app.MapDelete("fruit/{id}", (string id) =>
     _fruit.TryRemove(id, out _);
     return Results.NoContent();
 });
-//manual response generation
+//manual response generation for the joke code 418
 app.MapGet("/teapot", (HttpResponse response) =>
 {
     //setting the response properties
