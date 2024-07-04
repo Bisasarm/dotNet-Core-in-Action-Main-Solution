@@ -26,8 +26,7 @@ app.MapPost("/fruit/{id}", (string id, Fruit fruit) =>
         : Results.ValidationProblem(new Dictionary<string, string[]>
         {
             { "id", new[] { "A fruit with this id has already been created", "teststring" } },
-            { "test", new[] {"TestString to add a separate error line for the details" } }
-            
+            { "test", new[] {"This won't be shown" } }            
         }));
 //handle an update always with 204 no content
 app.MapPut("/fruit/{id}", (string id, Fruit fruit) =>
