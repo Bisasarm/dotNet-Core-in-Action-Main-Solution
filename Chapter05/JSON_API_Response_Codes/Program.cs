@@ -27,10 +27,22 @@ app.MapGet("/fruit", () => _fruit);
 
 //get a specific fruit and handle a not found with 404
 //added problem for more details
-app.MapGet("/fruit/{id}", (string id) => 
-    _fruit.TryGetValue(id, out var fruit)
-        ? TypedResults.Ok(fruit)
-        : Results.Problem(statusCode: 404));
+app.MapGet("/fruit/{id}", (string id) =>
+{
+    if (string.IsNullOrEmpty(id) || !id.StartsWith('f'))
+    {
+        return Results.ValidationProblem(new Dictionary<string, string[]>
+        {
+            {"id", new[] { "id needs to start with f" } }
+        });
+    }
+    else
+    {
+        return _fruit.TryGetValue(id, out var fruit)
+            ? TypedResults.Ok(fruit)
+            : Results.Problem(statusCode: 404);
+    }
+});
 //handle an already created fruit with a message and 400
 //validationproblem added to add more details. It needs a dictionary with the message inside of it
 app.MapPost("/fruit/{id}", (string id, Fruit fruit) =>
