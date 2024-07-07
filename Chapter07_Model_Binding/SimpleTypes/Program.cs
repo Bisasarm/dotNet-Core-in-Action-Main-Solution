@@ -23,10 +23,24 @@ app.MapGet("/products",
 app.MapGet("/stock", StockWithDefaultValue);
 
 app.MapPost("/size",(SizeDetails size) => $"sizes are {size}");
+//giving a bunch of parameterbindings to the endpoint handler at once
+app.MapGet("/category/{id}", ([AsParameters] SearchModel model) => $"Received {model}");
 
 app.Run();
 
 string StockWithDefaultValue(int id = 0) => $"received: {id}";
+/// <summary>
+/// Defining the parameters for a search model used in an endpoint handler
+/// </summary>
+/// <param name="id"></param>
+/// <param name="page"></param>
+/// <param name="sortAsc"></param>
+/// <param name="search"></param>
+readonly record struct SearchModel(
+    int id,
+    int page,
+    [FromHeader(Name = "sort")] bool? sortAsc,
+    [FromQuery(Name = "q")] string search);
 
 readonly record struct ProductId(int Id)
 {
