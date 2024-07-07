@@ -12,6 +12,14 @@ app.MapGet("/product/{id}", (ProductId id, [FromHeader]string testHeader) => $"T
 
 app.MapPost("/JSONProduct", (JSONProduct product) => $"Product bound to body: {product}");
 
+//Query string includes multiple ids with the same name: ?id=123&id=1234
+
+//this one has the crappy name "id" for multiple ids
+//app.MapGet("/products", (int[] id) => $"There are {id.Length} ids in the URL ");
+//this one has the better name for the query string parameter: id
+app.MapGet("/products",
+    ([FromQuery(Name = "id")] int[] ids) => $"received {ids.Length} ids");
+
 app.Run();
 
 
