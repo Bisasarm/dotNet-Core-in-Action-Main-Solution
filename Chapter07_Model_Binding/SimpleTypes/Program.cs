@@ -19,8 +19,10 @@ app.MapPost("/JSONProduct", (JSONProduct? product) => $"Product bound to body: {
 //this one has the better name for the query string parameter: id
 app.MapGet("/products",
     ([FromQuery(Name = "id")] int[] ids) => $"received {ids.Length} ids");
-
+//getting defaultalue does not yet work with lambda -> add it via declared method with a default value parameter
 app.MapGet("/stock", StockWithDefaultValue);
+
+app.MapPost("/size",(SizeDetails size) => $"sizes are {size}");
 
 app.Run();
 
@@ -43,3 +45,28 @@ readonly record struct ProductId(int Id)
     } 
 }
 record JSONProduct(int Id, string Name, int Stock);
+
+record SizeDetails(double Height, double Width)
+{
+    public static async ValueTask<SizeDetails> BindAsync(HttpContext context)
+    {
+        StreamReader sr = new StreamReader(context.Request.Body);
+
+        string? s1 = await sr.ReadLineAsync(context.RequestAborted);
+        if (s1 is null)
+        {
+            return null;
+        }
+        string? s2 = await sr.ReadLineAsync(context.RequestAborted);
+        if (s2 is null)
+        {
+            return null;
+        }
+        if (double.TryParse(s1, out double r1)
+            && double.TryParse(s2, out double r2))
+        {
+            return new SizeDetails(r1, r2);
+        }
+        else return null;
+    }
+}
