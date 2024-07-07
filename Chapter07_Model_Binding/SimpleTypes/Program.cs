@@ -46,17 +46,20 @@ readonly record struct ProductId(int Id)
 }
 record JSONProduct(int Id, string Name, int Stock);
 
+//reads out the body the way it comes. no json, nothing
 record SizeDetails(double Height, double Width)
 {
     public static async ValueTask<SizeDetails> BindAsync(HttpContext context)
     {
         StreamReader sr = new StreamReader(context.Request.Body);
 
+        //literally only reads the first line of the body
         string? s1 = await sr.ReadLineAsync(context.RequestAborted);
         if (s1 is null)
         {
             return null;
         }
+        //literally only reads the second line of the body
         string? s2 = await sr.ReadLineAsync(context.RequestAborted);
         if (s2 is null)
         {
