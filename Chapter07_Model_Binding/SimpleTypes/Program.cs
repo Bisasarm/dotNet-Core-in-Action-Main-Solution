@@ -32,10 +32,10 @@ string StockWithDefaultValue(int id = 0) => $"received: {id}";
 /// <summary>
 /// Defining the parameters for a search model used in an endpoint handler
 /// </summary>
-/// <param name="id"></param>
-/// <param name="page"></param>
-/// <param name="sortAsc"></param>
-/// <param name="search"></param>
+/// <param name="id">literal parameter</param>
+/// <param name="page">query parameter since not literally defined</param>
+/// <param name="sortAsc">optional header</param>
+/// <param name="search">Query parameter but explicitly set as query param</param>
 readonly record struct SearchModel(
     int id,
     int page,
