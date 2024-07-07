@@ -10,7 +10,7 @@ app.MapGet("/", () => "Hello World!");
 //also added mandatory fromHeader to test a header read on the request
 app.MapGet("/product/{id}", (ProductId id, [FromHeader]string testHeader) => $"Testheader{testHeader} and received product with ID: {id}");
 
-app.MapPost("/JSONProduct", (JSONProduct product) => $"Product bound to body: {product}");
+app.MapPost("/JSONProduct", (JSONProduct? product) => $"Product bound to body: {product}");
 
 //Query string includes multiple ids with the same name: ?id=123&id=1234
 
@@ -20,8 +20,11 @@ app.MapPost("/JSONProduct", (JSONProduct product) => $"Product bound to body: {p
 app.MapGet("/products",
     ([FromQuery(Name = "id")] int[] ids) => $"received {ids.Length} ids");
 
+app.MapGet("/stock", StockWithDefaultValue);
+
 app.Run();
 
+string StockWithDefaultValue(int id = 0) => $"received: {id}";
 
 readonly record struct ProductId(int Id)
 {
