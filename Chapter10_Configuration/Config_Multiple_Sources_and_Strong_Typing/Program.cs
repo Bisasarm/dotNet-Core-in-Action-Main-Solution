@@ -10,7 +10,12 @@ builder.Configuration.AddJsonFile("appsettings.json");
 builder.Configuration.AddJsonFile("sharedsettings.json");
 //injecting the Service for binded Configuration
 builder.Services.Configure<AppDisplaySettings>(builder.Configuration.GetSection(nameof(AppDisplaySettings)));
-builder.Services.Configure<MapSettings>(builder.Configuration.GetSection(nameof(MapSettings)));
+
+//builder.Services.Configure<MapSettings>(builder.Configuration.GetSection(nameof(MapSettings)));
+//binding configuration to POCO without IOptions
+var mapsettings = new MapSettings();
+builder.Configuration.GetSection(nameof(MapSettings)).Bind(mapsettings);
+builder.Services.AddSingleton(mapsettings);
 if (builder.Environment.IsDevelopment())
 {
     builder.Configuration.AddUserSecrets<Program>();
@@ -25,13 +30,7 @@ app.MapGet("/displaysettings", (IOptionsSnapshot<AppDisplaySettings> options) =>
     bool copyright = settings.ShowCopyright;
     return new { title, copyright };
 });
-app.MapGet("/Mapsettings", (IOptionsSnapshot<MapSettings> options) =>
-{
-    MapSettings settings = options.Value;
-    int zoom = settings.DefaultZoomlevel;
-    DefaultLocation location = settings.DefaultLocation;
-    return new {zoom, location };
-});
+app.MapGet("/Mapsettings", () => mapsettings.DefaultLocation);
 
 
 app.Run();
