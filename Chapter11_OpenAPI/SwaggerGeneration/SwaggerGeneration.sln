@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwaggerGeneration", "SwaggerGeneration.csproj", "{0549CE33-6D33-42D2-AA7D-55AAC42C111C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0549CE33-6D33-42D2-AA7D-55AAC42C111C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0549CE33-6D33-42D2-AA7D-55AAC42C111C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0549CE33-6D33-42D2-AA7D-55AAC42C111C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0549CE33-6D33-42D2-AA7D-55AAC42C111C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FB875C38-D204-4BE5-9E47-5F3C862A44AF}
+	EndGlobalSection
+EndGlobal
