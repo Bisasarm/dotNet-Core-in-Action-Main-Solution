@@ -20,12 +20,19 @@ app.MapGet("/fruit/{id}", (string id) =>
     return _list.TryGetValue(id, out var fruit)
         ? TypedResults.Ok(fruit)
         : Results.Problem(statusCode: 404);
-});
+})
+    .WithTags("fruit")
+    .Produces<Fruit>()
+    .ProducesProblem(statusCode: 404);
+
 app.MapPost("/fruit/{id}", (string id, Fruit fruit) =>
     _list.TryAdd(id, fruit)
         ? TypedResults.Created($"created fruit/{id}", fruit)
         : Results.ValidationProblem(new Dictionary<string, string[]> { { "id", new[] { "id is already being used" } } })
-);
+)
+    .WithTags("fruit")
+    .Produces<Fruit>(statusCode: 201)
+    .ProducesValidationProblem();
 
 app.Run();
 
