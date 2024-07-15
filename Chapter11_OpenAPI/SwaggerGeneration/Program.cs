@@ -22,6 +22,7 @@ app.MapGet("/fruit/{id}", (string id) =>
         : Results.Problem(statusCode: 404);
 })
     .WithTags("fruit")
+    .WithName("fruitName")
     .Produces<Fruit>()
     .ProducesProblem(statusCode: 404);
 
@@ -31,6 +32,7 @@ app.MapPost("/fruit/{id}", (string id, Fruit fruit) =>
         : Results.ValidationProblem(new Dictionary<string, string[]> { { "id", new[] { "id is already being used" } } })
 )
     .WithTags("fruit")
+    .WithName("fruitNam")
     .Produces<Fruit>(statusCode: 201)
     .ProducesValidationProblem();
 
