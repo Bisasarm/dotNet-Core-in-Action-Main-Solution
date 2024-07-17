@@ -26,6 +26,8 @@ class Recipe
     public TimeSpan CookingTime { get; set; }
 
     public required ICollection<Ingredient> Ingredients { get; set; }
+    public bool IsVegan { get; set; }
+    public bool IsVegetarian { get; set; }
 }
 
 class Ingredient
