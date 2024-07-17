@@ -1,3 +1,4 @@
+using EFCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,19 +6,27 @@ var connString = builder.Configuration.GetConnectionString("DefaultConnection");
 //adding the AppDbContext as a service to the DI Container
 //also adding the DBContextOptionsBuilder with the corresponding DB provider and the connection string
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connString));
+//adding the recipe services for handling CRUD
+builder.Services.AddScoped<RecipeService>();
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
+app.MapPost("/addIngredient", async (CreateRecipeCommand input, RecipeService service) =>
+{
+    int id = await service.CreateRecipe(input);
+    return Results.Created("Created with:", id);
+});
 
 app.Run();
 
-class AppDbContext : DbContext
+public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
     public DbSet<Recipe> Recipes { get; set; }    
 }
 
-class Recipe
+public class Recipe
 {
     public int RecipeId { get; set; }
     public required string Name { get; set; }
@@ -30,7 +39,7 @@ class Recipe
     public bool IsVegetarian { get; set; }
 }
 
-class Ingredient
+public class Ingredient
 {
     public int IngredientId { get; set; }
     public int RecipeId { get; set; }
