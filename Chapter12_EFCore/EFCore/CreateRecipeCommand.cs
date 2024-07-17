@@ -5,7 +5,6 @@
         public List<CreateIngredientCommand> Ingredients { get; set; } = new List<CreateIngredientCommand>();
         public Recipe ToRecipe()
         {
-
             return new Recipe
             {
                 Name = Name,
