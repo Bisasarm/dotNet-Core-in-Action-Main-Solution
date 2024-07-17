@@ -12,6 +12,10 @@ builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
+app.MapGet("/viewIngredients",(RecipeService service) =>
+{
+    return service.GetRecipes();
+});
 app.MapPost("/addIngredient", async (CreateRecipeCommand input, RecipeService service) =>
 {
     int id = await service.CreateRecipe(input);

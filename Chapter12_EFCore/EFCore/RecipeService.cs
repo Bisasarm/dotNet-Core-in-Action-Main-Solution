@@ -1,4 +1,6 @@
-﻿namespace EFCore
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EFCore
 {
     public class RecipeService
     {
@@ -13,6 +15,18 @@
             _dbContext.Add(recipe);
             await _dbContext.SaveChangesAsync();
             return recipe.RecipeId;
+        }
+        public async Task<ICollection<RecipeSummaryViewModel>> GetRecipes()
+        {
+            return await _dbContext.Recipes
+                .Where(r => !r.IsDeleted)
+                .Select(x => new RecipeSummaryViewModel
+                {
+                    Id = x.RecipeId,
+                    Name = x.Name,
+                    NumberIngredients = x.Ingredients.Count,
+                    TimeToCook = $"Hrs: {x.CookingTime.Hours} Mins {x.CookingTime.Minutes}"
+                }).ToListAsync();                
         }
     }
 }
