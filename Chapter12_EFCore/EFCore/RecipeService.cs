@@ -28,5 +28,25 @@ namespace EFCore
                     TimeToCook = $"Hrs: {x.CookingTime.Hours} Mins {x.CookingTime.Minutes}"
                 }).ToListAsync();                
         }
+        public async Task<RecipeDetailViewModel> GetRecipeDetail(int id)
+        {
+#pragma warning disable CS8603 // Possible null reference return.
+            return await _dbContext.Recipes
+                .Where(r => r.RecipeId == id)
+                .Select(r => new RecipeDetailViewModel
+                {
+                    Name = r.Name,                    
+                    Method = r.Method,
+                    RecipeId = r.RecipeId,
+                    Ingredients = r.Ingredients
+                    .Select(item => new RecipeDetailViewModel.Item
+                    {
+                        Name = item.Name,
+                        Quantity = $"Quantitiy: {item.Quantity}"
+                    })
+                })
+                .SingleOrDefaultAsync();
+#pragma warning restore CS8603 // Possible null reference return.
+        }
     }
 }

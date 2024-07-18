@@ -12,11 +12,18 @@ builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
-app.MapGet("/viewIngredients",(RecipeService service) =>
+app.MapGet("/viewRecipes",(RecipeService service) =>
 {
     return service.GetRecipes();
 });
-app.MapPost("/addIngredient", async (CreateRecipeCommand input, RecipeService service) =>
+app.MapGet("/viewRecipes/{id}",(int id, RecipeService service) =>
+{
+    var recipe = service.GetRecipeDetail(id);
+    return recipe is null
+        ? Results.NotFound()
+        : Results.Ok(recipe);
+});
+app.MapPost("/addRecipe", async (CreateRecipeCommand input, RecipeService service) =>
 {
     int id = await service.CreateRecipe(input);
     return Results.Created("Created with:", id);
