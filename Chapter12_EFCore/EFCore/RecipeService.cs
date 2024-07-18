@@ -48,5 +48,25 @@ namespace EFCore
                 .SingleOrDefaultAsync();
 #pragma warning restore CS8603 // Possible null reference return.
         }
+        /// <summary>
+        /// Updates the recipe
+        /// </summary>
+        /// <param name="cmd">Just a mapping for the updated parts of the recipe. Ingredient is not being updated</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">handling not found id</exception>
+        public async Task UpdateRecipe(UpdateRecipeCommand cmd)
+        {//First gotta check if the entry exists
+            var recipe = await _dbContext.Recipes.FindAsync(cmd.Id);
+            if (recipe is null)
+            {
+                throw new Exception("Unable to find Recipe");
+            }
+            //then got to set the recipe
+            //Call by reference?!
+            cmd.UpdateRecipe(recipe);
+            //saving the changes
+            await _dbContext.SaveChangesAsync();
+        }
+
     }
 }

@@ -11,7 +11,7 @@
                 CookingTime = new TimeSpan(CookingTimeHrs, CookingTimeMins, 0),
                 Method = Method,
                 IsVegan = IsVegan,
-                IsDeleted = IsVegetarian,
+                IsVegetarian = IsVegetarian,
                 Ingredients = Ingredients.Select(x => x.CreateIngredient()).ToList()
             };
         }

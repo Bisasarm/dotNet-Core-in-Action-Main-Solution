@@ -28,6 +28,12 @@ app.MapPost("/addRecipe", async (CreateRecipeCommand input, RecipeService servic
     int id = await service.CreateRecipe(input);
     return Results.Created("Created with:", id);
 });
+//Added endpoint for editing. Data is given via JSON Body Put Verb
+app.MapPut("/editRecipe", async (UpdateRecipeCommand input, RecipeService service) =>
+{
+    await service.UpdateRecipe(input);
+    return Results.NoContent();
+});
 
 app.Run();
 
