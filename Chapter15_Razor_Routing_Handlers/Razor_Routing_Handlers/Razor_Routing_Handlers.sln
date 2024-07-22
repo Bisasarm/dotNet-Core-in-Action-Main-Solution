@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Razor_Routing_Handlers", "Razor_Routing_Handlers.csproj", "{2AF752E5-02AE-48BD-8231-06A6CB4340DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AF752E5-02AE-48BD-8231-06A6CB4340DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AF752E5-02AE-48BD-8231-06A6CB4340DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AF752E5-02AE-48BD-8231-06A6CB4340DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AF752E5-02AE-48BD-8231-06A6CB4340DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {133A1AD1-A255-468B-8CC1-4BF06A450046}
+	EndGlobalSection
+EndGlobal
