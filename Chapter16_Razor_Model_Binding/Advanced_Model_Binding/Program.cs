@@ -1,7 +1,10 @@
+using Advanced_Model_Binding.Pages;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<ProductService>();
 
 var app = builder.Build();
 
