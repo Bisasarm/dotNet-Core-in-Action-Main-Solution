@@ -1,0 +1,25 @@
+﻿@page
+@model Forms_and_Tag_Helpers.Pages.DemoModel
+<form method="post">
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input class="form-control" asp-for="FirstName"/>
+        <span asp-validation-for="FirstName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input class="form-control" asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.Email"></label>
+        <input class="form-control" asp-for="@Model.Email" />
+        <span asp-validation-for="@Model.Email"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.PhoneNo"></label>
+        <input class="form-control" asp-for="@Model.PhoneNo" />
+        <span asp-validation-for="@Model.PhoneNo"></span>
+    </div>
+    <input type="submit" value="Submit" />
+</form>
