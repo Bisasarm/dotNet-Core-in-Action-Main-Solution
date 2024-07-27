@@ -1,0 +1,7 @@
+﻿@page
+@model Forms_and_Tag_Helpers.Pages.CurrencyConverterModel
+@{
+}
+<h1>Currency Converter</h1>
+<select asp-for="Input.SelectedValue1" asp-items="Model.CurrencyIn"></select>
+<select asp-for="Input.SelectedValue2" asp-items="Model.CurrencyOut"></select>
