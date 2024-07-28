@@ -3,5 +3,10 @@
 @{
 }
 <h1>Currency Converter</h1>
-<select asp-for="Input.SelectedValue1" asp-items="Model.CurrencyIn"></select>
-<select asp-for="Input.SelectedValue2" asp-items="Model.CurrencyOut"></select>
+<form method="post">
+    <select asp-for="Input.SelectedValue1" asp-items="Model.CurrencyIn" size="3">
+        <option value="none">*None*</option>
+    </select>
+    <select asp-for="Input.SelectedValue2" asp-items="Model.CurrencyOut" size="3"></select>
+    <input type="submit" value="Start Post"/>
+</form>

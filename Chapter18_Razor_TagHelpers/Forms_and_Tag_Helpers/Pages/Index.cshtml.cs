@@ -12,9 +12,9 @@ namespace Forms_and_Tag_Helpers.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            return RedirectToPage("/CurrencyConverter");
         }
     }
 }

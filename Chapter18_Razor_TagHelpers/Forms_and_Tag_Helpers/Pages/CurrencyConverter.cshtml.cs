@@ -31,6 +31,10 @@ namespace Forms_and_Tag_Helpers.Pages
         public void OnGet()
         {
         }
+        public void OnPost()
+        {
+            //do something
+        }
         public class InputModel
         {
             public string SelectedValue1 { get; set; }
