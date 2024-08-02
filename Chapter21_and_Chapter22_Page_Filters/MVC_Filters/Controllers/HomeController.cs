@@ -18,6 +18,7 @@ namespace MVC_Filters.Controllers
         {
             return View();
         }
+        //Filter need to be registered on scope
         [LogActionFilter]
         [LogResourceFilter]
         public IActionResult Privacy()

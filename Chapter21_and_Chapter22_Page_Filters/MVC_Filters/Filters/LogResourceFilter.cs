@@ -2,6 +2,7 @@
 
 namespace MVC_Filters.Filters
 {
+    //Filter 2nd and second to last in line. Comes right after the authentication filter
     public class LogResourceFilter : Attribute, IResourceFilter
     {
         void IResourceFilter.OnResourceExecuted(ResourceExecutedContext context)

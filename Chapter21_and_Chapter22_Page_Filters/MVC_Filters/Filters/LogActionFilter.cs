@@ -2,6 +2,7 @@
 
 namespace MVC_Filters.Filters
 {
+    //to use it as an [Attribute] the class inherits from Attribute
     public class LogActionFilter : Attribute, IActionFilter
     {
         public void OnActionExecuted(ActionExecutedContext context)

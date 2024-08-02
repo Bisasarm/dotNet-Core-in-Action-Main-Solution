@@ -2,6 +2,7 @@
 
 namespace MVC_Filters.Filters
 {
+    //Filter which executes after the ActionFilter
     public class LogResultFilter : Attribute, IResultFilter
     {
         public void OnResultExecuted(ResultExecutedContext context)

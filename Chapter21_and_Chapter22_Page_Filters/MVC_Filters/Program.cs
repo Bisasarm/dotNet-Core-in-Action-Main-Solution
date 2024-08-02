@@ -5,6 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews(options =>
 {
+    //Filters are added in scope
+    //Global scope is in program cs as mvc options
+    //controller or page scope is scoped to the class of either the mvc controller or the razor pagemodel classes
+    //action scoped filters only exist in MVC. Razors smallest scope is pagemodel
     //globally applied filter for result filter
     options.Filters.Add<LogResultFilter>();
 });
