@@ -1,26 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RecipeWebAPI.Filters;
 
 namespace RecipeWebAPI.Controllers
 {
-    public class RecipeAPIController : ControllerBase
+    //testing out authorizration
+    /// <summary>
+    /// Refactored class of RecipeAPIController
+    /// </summary>
+    [ValidateFeatureFlag(Enabled = true)]
+    [ValidateModelFilter]
+    public class FilteredRecipeAPIController : ControllerBase
     {
-        private bool _featureEnabled = true;
         private RecipeService _RecipeService { get; set; }
-        public RecipeAPIController(RecipeService recipeService)
+        public FilteredRecipeAPIController(RecipeService recipeService)
         {
             _RecipeService = recipeService;
         }
-        [HttpGet("{id}")]
+        [HttpGet("nofilter/{id}")]
         public IActionResult Get(int id)
         {
-            if (!_featureEnabled) return BadRequest();
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
                 if (!_RecipeService.DoesRecipeExist(id))
                 {
                     return NotFound();
@@ -30,20 +31,15 @@ namespace RecipeWebAPI.Controllers
             catch (Exception ex)
             {
                 return GetErrorResult(ex);
-            } 
-            
+            }
+
 
         }
-        [HttpPost("{id}")]
+        [HttpPost("nofilter/{id}")]
         public IActionResult Edit(int id)
         {
-            if (!_featureEnabled) return BadRequest();
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
                 if (!_RecipeService.DoesRecipeExist(id))
                 {
                     return NotFound();
@@ -68,6 +64,5 @@ namespace RecipeWebAPI.Controllers
             };
             return new ObjectResult(error);
         }
-
     }
 }
