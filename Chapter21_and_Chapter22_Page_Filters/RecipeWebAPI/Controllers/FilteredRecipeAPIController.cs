@@ -9,7 +9,7 @@ namespace RecipeWebAPI.Controllers
     /// Refactored class of RecipeAPIController
     /// </summary>
     [ValidateFeatureFlag(Enabled = true)]
-    [ValidateModelFilter]
+    [ValidateModelFilter(Order = -1)]
     [ExceptionFilter]
     public class FilteredRecipeAPIController : ControllerBase
     {
@@ -18,24 +18,18 @@ namespace RecipeWebAPI.Controllers
         {
             _RecipeService = recipeService;
         }
+        [EnsureRecipeExistsFilter(Order = 0)]
         [HttpGet("nofilter/{id}")]
         public IActionResult Get(int id)
         {
-            if (!_RecipeService.DoesRecipeExist(id))
-            {
-                return NotFound();
-            }
             return Ok(_RecipeService.GetRecipe(id));
-        }        
+        }
+        [EnsureRecipeExistsFilter(Order = 0)]
         [HttpPost("nofilter/{id}")]
         public IActionResult Edit(int id)
         {
-            if (!_RecipeService.DoesRecipeExist(id))
-            {
-                return NotFound();
-            }
             //Exception to test out exception
-            throw new Exception();
+            //throw new Exception();
             return Ok(_RecipeService.EditRecipe(id));
         }
 
