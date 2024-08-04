@@ -10,6 +10,7 @@ namespace RecipeWebAPI.Controllers
     /// </summary>
     [ValidateFeatureFlag(Enabled = true)]
     [ValidateModelFilter]
+    [ExceptionFilter]
     public class FilteredRecipeAPIController : ControllerBase
     {
         private RecipeService _RecipeService { get; set; }
@@ -20,49 +21,23 @@ namespace RecipeWebAPI.Controllers
         [HttpGet("nofilter/{id}")]
         public IActionResult Get(int id)
         {
-            try
+            if (!_RecipeService.DoesRecipeExist(id))
             {
-                if (!_RecipeService.DoesRecipeExist(id))
-                {
-                    return NotFound();
-                }
-                return Ok(_RecipeService.GetRecipe(id));
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                return GetErrorResult(ex);
-            }
-
-
-        }
+            return Ok(_RecipeService.GetRecipe(id));
+        }        
         [HttpPost("nofilter/{id}")]
         public IActionResult Edit(int id)
         {
-            try
+            if (!_RecipeService.DoesRecipeExist(id))
             {
-                if (!_RecipeService.DoesRecipeExist(id))
-                {
-                    return NotFound();
-                }
-                //Exception to test out exception
-                //throw new Exception();
-                return Ok(_RecipeService.EditRecipe(id));
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                return GetErrorResult(ex);
-            }
+            //Exception to test out exception
+            throw new Exception();
+            return Ok(_RecipeService.EditRecipe(id));
         }
-        private static IActionResult GetErrorResult(Exception ex)
-        {
-            var error = new ProblemDetails
-            {
-                Status = 500,
-                Title = "A custom error occured",
-                Detail = ex.Message,
-                Type = "https://httpstatuses.com/500"
-            };
-            return new ObjectResult(error);
-        }
+
     }
 }
