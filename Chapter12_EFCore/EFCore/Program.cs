@@ -1,4 +1,6 @@
 using EFCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,12 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connStr
 //adding the recipe services for handling CRUD
 builder.Services.AddScoped<RecipeService>();
 builder.Services.AddProblemDetails();
+builder.Services.AddRazorPages();
+//Adding DefaultIdentity with the current appdbcontext and some options
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+}).AddEntityFrameworkStores<AppDbContext>();
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
@@ -35,9 +43,14 @@ app.MapPut("/editRecipe", async (UpdateRecipeCommand input, RecipeService servic
     return Results.NoContent();
 });
 
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapRazorPages();
+
 app.Run();
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
     public DbSet<Recipe> Recipes { get; set; }    
@@ -64,3 +77,5 @@ public class Ingredient
     public decimal Quantity { get; set; }
     public required string Unit { get; set; }
 }
+
+public class ApplicationUser : IdentityUser { }
