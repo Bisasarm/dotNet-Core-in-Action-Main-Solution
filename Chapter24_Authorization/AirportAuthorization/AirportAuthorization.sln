@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportAuthorization", "AirportAuthorization.csproj", "{DEFE66AE-BDFA-40F9-8E81-7AC38DCA8CC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEFE66AE-BDFA-40F9-8E81-7AC38DCA8CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEFE66AE-BDFA-40F9-8E81-7AC38DCA8CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEFE66AE-BDFA-40F9-8E81-7AC38DCA8CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEFE66AE-BDFA-40F9-8E81-7AC38DCA8CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85EC089D-3CDE-4FCB-91DF-76877765F8B8}
+	EndGlobalSection
+EndGlobal
