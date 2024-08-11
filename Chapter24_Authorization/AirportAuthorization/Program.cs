@@ -20,10 +20,17 @@ builder.Services.AddRazorPages();
 //adding the policies to use them as attributes
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("CanEnterLounge", policybuilder => policybuilder.AddRequirements(new LoungeAccessRequirement()));
+    options.AddPolicy("CanEnterLounge", policybuilder =>
+    {
+        policybuilder.AddRequirements(new LoungeAccessRequirement());
+        policybuilder.AddRequirements(new MinimumAgeRequirement(18));
+    });
 });
 //necessary to implement handlers for authorization
 builder.Services.AddSingleton<IAuthorizationHandler, BannedFromLoungeHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, FrequentFlyerHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, IsEmployeeHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
 
 var app = builder.Build();
 

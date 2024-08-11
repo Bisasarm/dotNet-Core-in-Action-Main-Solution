@@ -13,7 +13,7 @@ namespace AirportAuthorization.Authorization.Handlers
                 context.Fail();
             }
             //this is necessary to satisfy the requirement, but this will be taken out later on
-            context.Succeed(requirement);
+            //context.Succeed(requirement);
             return Task.CompletedTask;
         }
     }
