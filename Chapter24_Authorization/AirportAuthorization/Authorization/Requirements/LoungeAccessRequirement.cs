@@ -1,6 +1,8 @@
-﻿namespace AirportAuthorization.Authorization.Requirements
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace AirportAuthorization.Authorization.Requirements
 {
-    public class LoungeAccessRequirement
+    public class LoungeAccessRequirement : IAuthorizationRequirement
     {
     }
 }

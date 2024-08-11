@@ -1,4 +1,8 @@
+using AirportAuthorization.Authorization;
+using AirportAuthorization.Authorization.Handlers;
+using AirportAuthorization.Authorization.Requirements;
 using AirportAuthorization.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +17,13 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+//adding the policies to use them as attributes
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanEnterLounge", policybuilder => policybuilder.AddRequirements(new LoungeAccessRequirement()));
+});
+//necessary to implement handlers for authorization
+builder.Services.AddSingleton<IAuthorizationHandler, BannedFromLoungeHandler>();
 
 var app = builder.Build();
 
